@@ -43,7 +43,7 @@
         const handleDelete = (e)=>{
             const conf = window.confirm("yakin delete ? ")
             if(!conf) return
-            fetch("http://0.0.0.0:3000/api/user/delete/" + e, {
+            fetch("/api/user/delete/" + e, {
                 method : "DELETE",
                 headers : {
                     "Content-Type" : "application/json"

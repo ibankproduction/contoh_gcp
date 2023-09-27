@@ -31,7 +31,7 @@
         email = e.target.email.value
         password = e.target.password.value
 
-        fetch('http://0.0.0.0:3000/api/user/create', {
+        fetch('/api/user/create', {
             method : "POST",
             body : JSON.stringify({email, password}),
             headers : {

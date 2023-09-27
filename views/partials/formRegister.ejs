@@ -49,7 +49,7 @@
         const email = e.target.email.value
         const password = e.target.password.value
 
-        fetch("http://0.0.0.0:3000/api/user/create", {
+        fetch("/api/user/create", {
             method : "POST",
             headers : {
                 "Content-Type" : "application/json"

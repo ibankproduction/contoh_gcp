@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script type="module" src="features/home/index.js" defer></script>
+    <link rel="stylesheet" href="main.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+<body>
+    <form id="form_register" class="p-6 flex flex-col gap-4 bg-white rounded-md my-4 max-w-xl">
+        <h1 class="text-2xl font-light uppercase text-center">
+            form register
+        </h1>
+        <div class="w-full flex flex-col gap-2">
+            <label for="email">Email</label>
+            <input type="email" id="email" class="w-full h-10 px-3 font-light rounded-md border-gray-300 outline-none border-2" >
+        </div>
+    
+        <div class="w-full flex flex-col gap-2">
+            <label for="password">password</label>
+            <input type="password" id="password" class="w-full h-10 px-3 font-light rounded-md border-gray-300 outline-none border-2" autocomplete="off">
+        </div>
+    
+        <div class="flex gap-2 max-w-sm">
+            <button class="flex-1 bg-gray-500 px-3 rounded-md h-10 text-gray-300 uppercase" type="reset">
+                Reset
+            </button>
+            <button class="flex-1 bg-blue-500 px-3 rounded-md h-10 text-white uppercase" type="submit">
+                Login
+            </button>
+        </div>
+
+        <small class="hidden text-green-500" id="success_helper">
+            Success Register
+        </small>
+    
+    </form>
+
+
+<script type="module">
+    const form_register = window.document.getElementById("form_register")
+    const handleRegister = (e)=>{
+        e.preventDefault()
+        const email = e.target.email.value
+        const password = e.target.password.value
+
+        fetch("http://0.0.0.0:3000/api/user/create", {
+            method : "POST",
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({email, password})
+        })
+        .then(async(res) => {
+            const data = await res.json()
+            if(res.status !== 201){
+                return window.alert("gagal ", res.error.message)
+            }
+            console.info(data)
+            const success_helper = document.getElementById("success_helper")
+            success_helper.style.display = "flex"
+            e.target.email.value = ""
+            e.target.password.value = ""
+
+            setTimeout(()=>{
+                window.location.href = "/about"
+            },3000)
+
+        })
+ 
+    }
+
+    form_register.addEventListener("submit", handleRegister)
+
+</script>
+
+</body>
+</html>
